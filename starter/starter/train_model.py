@@ -1,16 +1,19 @@
 # Script to train machine learning model.
 
 # Add the necessary imports for the starter code.
+from logging import root
 import os
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from data import process_data
-from model import train_model, compute_model_metrics, inference
+from ml.data import process_data
+from ml.model import train_model, compute_model_metrics, inference
 
+from pathlib import Path
 
 # Add code to load in the data.
-path = os.path.join("starter", "data", "census.csv")
+root_dir = Path(__file__).parent.parent.resolve()
+path = os.path.join(str(root_dir), "data", "census.csv")
 data = pd.read_csv(path)
 
 # Remove leading spaces in columns
