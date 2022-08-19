@@ -6,7 +6,7 @@ import os
 import numpy as np
 import pandas as pd
 from sklearn.model_selection import train_test_split
-from ml.data import process_data
+from ml.data import process_data, remove_space_in_data, remove_space_in_column_names
 from ml.model import train_model, compute_model_metrics, inference
 
 from pathlib import Path
@@ -17,14 +17,10 @@ path = os.path.join(str(root_dir), "data", "census.csv")
 data = pd.read_csv(path)
 
 # Remove leading spaces in columns
-new_col = [c.lstrip() for c in data.columns.to_list()]
-old_col = data.columns.to_list()
+data = remove_space_in_column_names(data)
 
-col_name_dict = {}
-for o, n in zip(old_col, new_col):
-    col_name_dict[o] = n
-
-data = data.rename(col_name_dict, axis=1)
+# Remove leading spaces in category type data
+data = remove_space_in_data(data, data.select_dtypes('object'))
 
 # Optional enhancement, use K-fold cross validation instead of a train-test split.
 train, test = train_test_split(data, test_size=0.20)

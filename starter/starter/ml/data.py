@@ -1,6 +1,37 @@
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+def remove_space_in_column_names(df):
+    """
+    Remove leading spaces in column names
+
+    Inputs:
+    df: pd.DataFrame
+    """
+    new_col = [c.lstrip() for c in df.columns.to_list()]
+    old_col = df.columns.to_list()
+
+    col_name_dict = {}
+    for o, n in zip(old_col, new_col):
+        col_name_dict[o] = n
+
+    df = df.rename(col_name_dict, axis=1)
+
+    return df
+
+
+def remove_space_in_data(df, cat_cols):
+    """
+    Remove leading spaces in dataframe
+
+    Inputs:
+    df: pd.DataFrame
+    cat_cols: List of columns of type object
+    """
+    for col in cat_cols:
+        df[col] = df[col].apply(lambda x: x.lstrip())
+
+    return df
 
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
