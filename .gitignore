@@ -130,3 +130,6 @@ dmypy.json
 .pyre/
 
 # csv files
+
+# Pickle file
+.pkl
