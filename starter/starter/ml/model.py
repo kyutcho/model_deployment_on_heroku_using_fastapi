@@ -1,5 +1,6 @@
 import json
 from logging import FileHandler
+from collections import defaultdict
 import os
 import pickle
 import numpy as np
@@ -87,5 +88,38 @@ def inference(model, X):
     return y_pred
 
 
-if __name__ == '__main__':
-    save_model(None)
+def compute_data_slice_scores(test_data, y_test, y_pred):
+    """ Computes model score for each data slice
+    
+    Inputs
+    ------
+    X_test: Test X data
+    y_test: True y labels
+    y_pred: Predicted y labels
+
+    Returns
+    -------
+    cat_slice_score_dict: Model scores for each class in each categorical features
+    """
+    cat_features_list = test_data.select_dtypes("object").columns.to_list()
+    cat_features_list.remove('salary')
+
+    cat_slice_score_dict = defaultdict(list)
+
+    test_data_copy = test_data.copy().reset_index(drop=True)
+
+    for cat_feature in cat_features_list:
+        for cls in test_data_copy[cat_feature].unique():
+            # Get the index for each class
+            cls_idx = test_data_copy[test_data_copy[cat_feature] == cls].index
+
+            # Get three scores for each class using compute_model_metrics function
+            cls_score_dict = {}
+
+            precision, recall, fbeta = compute_model_metrics(y_test[cls_idx], y_pred[cls_idx])
+            cls_score_dict[cls] = {"precision": precision, "recall": recall, "fbeta": fbeta}
+
+            # Append it to the cat_slice_score_dict            
+            cat_slice_score_dict[cat_feature].append(cls_score_dict)
+
+    return cat_slice_score_dict

@@ -132,4 +132,4 @@ dmypy.json
 # csv files
 
 # Pickle file
-.pkl
+*.pkl
