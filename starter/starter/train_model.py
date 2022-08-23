@@ -8,7 +8,7 @@ import pandas as pd
 import pickle
 from sklearn.model_selection import train_test_split
 from ml.data import process_data, remove_space_in_data, remove_space_in_column_names
-from ml.model import train_model, compute_model_metrics, inference, save_model, compute_data_slice_scores
+from ml.model import train_model, compute_model_metrics, inference, save_model, compute_data_slice_scores, save_data_slice_scores
 
 from pathlib import Path
 
@@ -71,10 +71,8 @@ y_pred = inference(rf_model, X_test)
 precision, recall, fbeta = compute_model_metrics(y_test, y_pred)
 
 # Get model scores for categorical slices
-slice_scores = compute_data_slice_scores(test, y_test, y_pred)
+data_slice_scores = compute_data_slice_scores(test, y_test, y_pred)
 
-with open(os.path.join(str(root_dir), "output", "slice_output.txt"), 'w') as f:
-    for k, v in slice_scores.items():
-        for cls in v:
-            for k2, v2 in cls.items():
-                f.write(f"class {k2} of categorical feature {k} has score {v2}")
+# Save slice_output.txt file
+output_path = os.path.join(str(root_dir), "outputs", "slice_output.txt")
+save_data_slice_scores(data_slice_scores, output_path)

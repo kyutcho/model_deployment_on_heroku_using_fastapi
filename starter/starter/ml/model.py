@@ -123,3 +123,22 @@ def compute_data_slice_scores(test_data, y_test, y_pred):
             cat_slice_score_dict[cat_feature].append(cls_score_dict)
 
     return cat_slice_score_dict
+
+
+def save_data_slice_scores(score_slice_dict, output_path):
+    """ Saves the score slice to the output_path in txt format
+    
+    Inputs
+    ------
+    score_slice: Dictionary of scores for each class in each feature
+    output_path: Path to save the text file
+
+    Returns
+    -------
+    None
+    """
+    with open(output_path, 'w') as f:
+        for k, v in score_slice_dict.items():
+            for cls in v:
+                for k2, v2 in cls.items():
+                    f.write(f"class {k2} of categorical feature {k} has score {v2}")
