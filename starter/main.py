@@ -1,1 +1,7 @@
-# Put the code for your API here.
+from fastapi import FastAPI
+
+app = FastAPI()
+
+@app.get("/")
+def home():
+    return {"Data": "Test"}
