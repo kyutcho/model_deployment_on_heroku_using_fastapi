@@ -74,25 +74,17 @@ except FileNotFoundError as e:
 
     # Save model
     save_model(rf_model)
-
-print(X_test.shape)
-print(X_test[0, :].reshape(1, -1).shape)
-
+    
 # Get prediction using trained model
-# y_pred = inference(rf_model, X_test)
-y_pred = inference(rf_model, X_test[0, :].reshape(1, -1))
+y_pred = inference(rf_model, X_test)
 
-print(y_pred[0])
+# Get model scores (precision, recall, fbeta)
+precision, recall, fbeta = compute_model_metrics(y_test, y_pred)
 
-print(lbl_binarizer.inverse_transform(y_pred)[0])
+# Get model scores for categorical slices
+data_slice_scores = compute_data_slice_scores(test, y_test, y_pred)
 
-# # Get model scores (precision, recall, fbeta)
-# precision, recall, fbeta = compute_model_metrics(y_test, y_pred)
-
-# # Get model scores for categorical slices
-# data_slice_scores = compute_data_slice_scores(test, y_test, y_pred)
-
-# # Save slice_output.txt file
-# output_path = os.path.join(str(root_dir), "outputs", "slice_output.txt")
-# if not os.path.isfile(output_path):
-#     save_data_slice_scores(data_slice_scores, output_path)
+# Save slice_output.txt file
+output_path = os.path.join(str(root_dir), "outputs", "slice_output.txt")
+if not os.path.isfile(output_path):
+    save_data_slice_scores(data_slice_scores, output_path)
