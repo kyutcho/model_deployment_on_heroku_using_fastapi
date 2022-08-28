@@ -15,6 +15,10 @@ for o, n in zip(old_col, new_col):
 df = df.rename(col_name_dict, axis=1)
 # %%
 df.head()
+#%%
+df.columns.to_list()
+#%%
+df.dtypes
 # %%
 df["salary"].value_counts()
 #%%
@@ -36,4 +40,13 @@ for cls in df["salary"].unique():
 #%%
 d = {"a": 3, "b": 2}
 print(d["a"])
+# %%
+print(pd.DataFrame(np.array([[1,2,3]])))
+# %%
+import numpy as np
+arr = np.array([[0, 1, 0, 0, 0],
+                [0, 0, 0, 1, 0],
+                [0, 0, 0, 0, 1],
+                [0, 0, 1, 0, 0],
+                [1, 0, 0, 0, 0]])
 # %%

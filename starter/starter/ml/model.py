@@ -41,8 +41,8 @@ def save_model(model):
     """
     Saves model in the specified directory
     """
-    root_path = Path(__file__).parent.parent.parent.resolve()
-    fileHandler = open(os.path.join(root_path, "model", "model.pkl"), "wb")
+    root_dir = Path(__file__).parent.parent.parent.resolve()
+    fileHandler = open(os.path.join(root_dir, "model", "model.pkl"), "wb")
 
     pickle.dump(model, fileHandler)
 
