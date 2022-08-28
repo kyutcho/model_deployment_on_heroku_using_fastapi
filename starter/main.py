@@ -5,6 +5,7 @@ import uvicorn
 from pydantic import BaseModel, Field
 import pickle
 import json
+from pathlib import Path
 import numpy as np
 import pandas as pd
 from starter.ml.data import process_data
@@ -12,15 +13,15 @@ from starter.ml.model import inference
 
 app = FastAPI()
 
-model_path = os.path.join("model")
+root_dir = Path(__file__).parent.resolve()
 
-with open(os.path.join(model_path, "model.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "model.pkl"), "rb") as f:
     classifier = pickle.load(f)
 
-with open(os.path.join(model_path, "encoder.pkl"), "rb") as f:
+with open(os.path.join(root_dir,  "starter", "model", "encoder.pkl"), "rb") as f:
     oh_encoder = pickle.load(f)
 
-with open(os.path.join(model_path, "labelizer.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "labelizer.pkl"), "rb") as f:
     labelizer = pickle.load(f)
 
 cat_features = [
