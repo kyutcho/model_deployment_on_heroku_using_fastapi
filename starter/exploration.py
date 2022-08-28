@@ -50,3 +50,9 @@ arr = np.array([[0, 1, 0, 0, 0],
                 [0, 0, 1, 0, 0],
                 [1, 0, 0, 0, 0]])
 # %%
+arr.ravel()
+# %%
+df.["education"].unique()
+# %%
+df["education-num"]
+# %%

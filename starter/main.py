@@ -7,21 +7,21 @@ import pickle
 import json
 import numpy as np
 import pandas as pd
-from starter.starter.ml.data import process_data
-from starter.starter.ml.model import inference
+from starter.ml.data import process_data
+from starter.ml.model import inference
 
 app = FastAPI()
 
 model_path = os.path.join("model")
 
-model_handler = open(os.path.join(model_path, "model.pkl"), "rb")
-classifier = pickle.load(model_handler)
+with open(os.path.join(model_path, "model.pkl"), "rb") as f:
+    classifier = pickle.load(f)
 
-encoder_handler = open(os.path.join(model_path, "encoder.pkl"), "rb")
-oh_encoder = pickle.load(model_handler)
+with open(os.path.join(model_path, "encoder.pkl"), "rb") as f:
+    oh_encoder = pickle.load(f)
 
-labelizer_handler = open(os.path.join(model_path, "labelizer.pkl"), "rb")
-labelizer = pickle.load(model_handler)
+with open(os.path.join(model_path, "labelizer.pkl"), "rb") as f:
+    labelizer = pickle.load(f)
 
 cat_features = [
     "workclass",
@@ -46,7 +46,7 @@ class census_data_input(BaseModel):
     sex: object
     capital_gain: int = Field(alias="capital-gain")
     capital_loss: int = Field(alias="capital-loss")
-    hours_per_week: object = Field(alias="hours-per-week")
+    hours_per_week: int = Field(alias="hours-per-week")
     native_country: object = Field(alias="native-country")
     
 @app.get("/")
@@ -90,7 +90,9 @@ async def predict_salary(input_param: census_data_input):
 
     y_pred = inference(classifier, test_X_val)
 
-    return labelizer.inverse_transform(y_pred)[0]
+    salary_prediction = labelizer.inverse_transform(y_pred)[0]
+
+    return {"Prediction": salary_prediction}
 
 
 if __name__ == "__main__":
