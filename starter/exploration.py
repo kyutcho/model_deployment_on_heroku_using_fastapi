@@ -52,7 +52,10 @@ arr = np.array([[0, 1, 0, 0, 0],
 # %%
 arr.ravel()
 # %%
-df.["education"].unique()
+df["education-num"].head(50)
 # %%
-df["education-num"]
+df["education"].head(50)
+#%%
+df["marital-status"].unique()
 # %%
+df.columns.to_list()
