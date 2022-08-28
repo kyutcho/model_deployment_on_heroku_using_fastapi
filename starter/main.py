@@ -1,4 +1,5 @@
 import os
+import sys
 from typing import Union
 from fastapi import FastAPI
 import uvicorn
@@ -14,14 +15,15 @@ from starter.ml.model import inference
 app = FastAPI()
 
 root_dir = Path(__file__).parent.resolve()
+sys.path.append(str(root_dir))
 
-with open(os.path.join(root_dir, "starter", "model", "model.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "model", "model.pkl"), "rb") as f:
     classifier = pickle.load(f)
 
-with open(os.path.join(root_dir,  "starter", "model", "encoder.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "model", "encoder.pkl"), "rb") as f:
     oh_encoder = pickle.load(f)
 
-with open(os.path.join(root_dir, "starter", "model", "labelizer.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "model", "labelizer.pkl"), "rb") as f:
     labelizer = pickle.load(f)
 
 cat_features = [
