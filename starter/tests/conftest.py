@@ -22,6 +22,6 @@ def data():
         return df
 
     except FileNotFoundError as e:
-        logging.error(f"File {file_name} not found")
+        logger.error(f"File {file_name} not found")
     
     

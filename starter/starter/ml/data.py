@@ -1,6 +1,37 @@
 import numpy as np
 from sklearn.preprocessing import LabelBinarizer, OneHotEncoder
 
+def remove_space_in_column_names(df):
+    """
+    Remove leading spaces in column names
+
+    Inputs:
+    df: pd.DataFrame
+    """
+    new_col = [c.lstrip() for c in df.columns.to_list()]
+    old_col = df.columns.to_list()
+
+    col_name_dict = {}
+    for o, n in zip(old_col, new_col):
+        col_name_dict[o] = n
+
+    df = df.rename(col_name_dict, axis=1)
+
+    return df
+
+
+def remove_space_in_data(df, cat_cols):
+    """
+    Remove leading spaces in dataframe
+
+    Inputs:
+    df: pd.DataFrame
+    cat_cols: List of columns of type object
+    """
+    for col in cat_cols:
+        df[col] = df[col].apply(lambda x: x.lstrip())
+
+    return df
 
 def process_data(
     X, categorical_features=[], label=None, training=True, encoder=None, lb=None
@@ -57,13 +88,16 @@ def process_data(
         encoder = OneHotEncoder(sparse=False, handle_unknown="ignore")
         lb = LabelBinarizer()
         X_categorical = encoder.fit_transform(X_categorical)
-        y = lb.fit_transform(y.values).ravel()
+        y = lb.fit_transform(y).ravel()
     else:
         X_categorical = encoder.transform(X_categorical)
         try:
-            y = lb.transform(y.values).ravel()
+            y = lb.transform(y).ravel()
         # Catch the case where y is None because we're doing inference.
         except AttributeError:
+            pass
+
+        except ValueError as err:
             pass
 
     X = np.concatenate([X_continuous, X_categorical], axis=1)
