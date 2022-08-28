@@ -55,7 +55,7 @@ def home():
 
 @app.get("/welcome")
 def get_name(name: str):
-    return {"Welcome message": "f'{name}'"}
+    return {"Welcome message": f"{name}"}
 
 @app.post("/predictions")
 async def predict_salary(input_param: census_data_input):
@@ -79,7 +79,10 @@ async def predict_salary(input_param: census_data_input):
 
     input_df = pd.DataFrame(np.array([[age, workclass, fnlgt, education, education_num, \
                                        marital_status, occupation, relationship, race, \
-                                       sex, capital_gain, capital_loss, hours_per_week, native_country]]))
+                                       sex, capital_gain, capital_loss, hours_per_week, native_country]]),
+                            columns=['age', 'workclass', 'fnlgt', 'education', 'education-num', \
+                                     'marital-status', 'occupation', 'relationship', 'race', 'sex', \
+                                     'capital-gain', 'capital-loss', 'hours-per-week', 'native-country'])
 
     test_X_val, test_y_val, _, _ = process_data(input_df, 
                                                 categorical_features=cat_features, 
