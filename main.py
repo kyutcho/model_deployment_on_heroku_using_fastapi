@@ -22,13 +22,13 @@ app = FastAPI()
 
 # print(root_dir)
 
-with open(os.path.join("starter", "starter", "model", "model.pkl"), "rb") as f:
+with open(os.path.join("starter", "model", "model.pkl"), "rb") as f:
     classifier = pickle.load(f)
 
-with open(os.path.join("starter", "starter", "model", "encoder.pkl"), "rb") as f:
+with open(os.path.join("starter", "model", "encoder.pkl"), "rb") as f:
     oh_encoder = pickle.load(f)
 
-with open(os.path.join("starter", "starter", "model", "labelizer.pkl"), "rb") as f:
+with open(os.path.join("starter", "model", "labelizer.pkl"), "rb") as f:
     labelizer = pickle.load(f)
 
 cat_features = [
