@@ -14,6 +14,8 @@ from starter.ml.model import inference
 
 app = FastAPI()
 
+port = int(os.environ.get('PORT', 5000))
+
 root_dir = Path(__file__).parent.resolve()
 sys.path.append(str(root_dir))
 
@@ -102,4 +104,4 @@ async def predict_salary(input_param: census_data_input):
 
 
 if __name__ == "__main__":
-    uvicorn.run(app, host='127.0.0.1', port=8000)
+    uvicorn.run(app, host='0.0.0.0', port=5000)
