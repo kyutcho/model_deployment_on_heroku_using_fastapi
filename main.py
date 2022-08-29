@@ -19,7 +19,7 @@ app = FastAPI()
 root_dir = Path(__file__).parent.resolve()
 # sys.path.append(str(root_dir))
 
-with open(os.path.join(root_dir, "starter", "model", "model.pkl"), "rb") as f:
+with open("starter/model/model.pkl", "rb") as f:
     classifier = pickle.load(f)
 
 with open(os.path.join(root_dir, "starter", "model", "encoder.pkl"), "rb") as f:
