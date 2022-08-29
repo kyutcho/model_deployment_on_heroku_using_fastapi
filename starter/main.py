@@ -13,10 +13,8 @@ import pandas as pd
 root_dir = Path(__file__).parent.resolve()
 sys.path.append(str(root_dir))
 
-print(sys.path)
-
 from starter.starter.ml.data import process_data
-from starter.ml.model import inference
+from starter.starter.ml.model import inference
 
 app = FastAPI()
 
