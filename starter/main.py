@@ -13,7 +13,9 @@ import pandas as pd
 root_dir = Path(__file__).parent.resolve()
 sys.path.append(str(root_dir))
 
-from starter.ml.data import process_data
+print(sys.path)
+
+from starter.starter.ml.data import process_data
 from starter.ml.model import inference
 
 app = FastAPI()
@@ -103,7 +105,3 @@ async def predict_salary(input_param: census_data_input):
     salary_prediction = labelizer.inverse_transform(y_pred)[0]
 
     return {"Prediction": salary_prediction}
-
-
-if __name__ == "__main__":
-    uvicorn.run(app, host='0.0.0.0', port=5000)
