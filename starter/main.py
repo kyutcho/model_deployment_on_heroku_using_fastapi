@@ -21,13 +21,13 @@ app = FastAPI()
 port = int(os.environ.get('PORT', 5000))
 
 
-with open(os.path.join(root_dir, "model", "model.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "model.pkl"), "rb") as f:
     classifier = pickle.load(f)
 
-with open(os.path.join(root_dir, "model", "encoder.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "encoder.pkl"), "rb") as f:
     oh_encoder = pickle.load(f)
 
-with open(os.path.join(root_dir, "model", "labelizer.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "labelizer.pkl"), "rb") as f:
     labelizer = pickle.load(f)
 
 cat_features = [
