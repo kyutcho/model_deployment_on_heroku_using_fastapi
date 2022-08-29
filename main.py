@@ -9,10 +9,6 @@ import json
 from pathlib import Path
 import numpy as np
 import pandas as pd
-
-# root_dir = Path(__file__).parent.resolve()
-# sys.path.append(str(root_dir))
-
 from starter.starter.ml.data import process_data
 from starter.starter.ml.model import inference
 
@@ -20,15 +16,16 @@ app = FastAPI()
 
 # port = int(os.environ.get('PORT', 5000))
 
-# print(root_dir)
+root_dir = Path(__file__).parent.resolve()
+# sys.path.append(str(root_dir))
 
-with open(os.path.join("starter", "model", "model.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "model.pkl"), "rb") as f:
     classifier = pickle.load(f)
 
-with open(os.path.join("starter", "model", "encoder.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "encoder.pkl"), "rb") as f:
     oh_encoder = pickle.load(f)
 
-with open(os.path.join("starter", "model", "labelizer.pkl"), "rb") as f:
+with open(os.path.join(root_dir, "starter", "model", "labelizer.pkl"), "rb") as f:
     labelizer = pickle.load(f)
 
 cat_features = [
