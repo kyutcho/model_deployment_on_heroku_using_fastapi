@@ -9,6 +9,10 @@ import json
 from pathlib import Path
 import numpy as np
 import pandas as pd
+
+root_dir = Path(__file__).parent.resolve()
+sys.path.append(str(root_dir))
+
 from starter.ml.data import process_data
 from starter.ml.model import inference
 
@@ -16,8 +20,6 @@ app = FastAPI()
 
 port = int(os.environ.get('PORT', 5000))
 
-root_dir = Path(__file__).parent.resolve()
-sys.path.append(str(root_dir))
 
 with open(os.path.join(root_dir, "model", "model.pkl"), "rb") as f:
     classifier = pickle.load(f)
