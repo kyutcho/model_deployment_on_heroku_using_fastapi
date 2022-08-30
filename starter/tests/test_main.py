@@ -2,7 +2,7 @@ import sys
 import os
 from pathlib import Path
 
-root_dir = Path(__file__).parent.parent.resolve()
+root_dir = Path(__file__).parent.parent.parent.resolve()
 sys.path.append(str(root_dir))
 
 from fastapi.testclient import TestClient

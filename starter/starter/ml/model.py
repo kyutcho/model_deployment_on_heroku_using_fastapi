@@ -141,4 +141,4 @@ def save_data_slice_scores(score_slice_dict, output_path):
         for k, v in score_slice_dict.items():
             for cls in v:
                 for k2, v2 in cls.items():
-                    f.write(f"class {k2} of categorical feature {k} has score {v2}")
+                    f.write(f"class {k2} of categorical feature {k} has score {v2}\n")

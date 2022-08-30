@@ -12,6 +12,7 @@ from ml.data import process_data, remove_space_in_data, remove_space_in_column_n
 from ml.model import train_model, compute_model_metrics, inference, save_model, compute_data_slice_scores, save_data_slice_scores
 
 from pathlib import Path
+import json
 
 logging.basicConfig(
     level=logging.INFO,
@@ -83,6 +84,11 @@ precision, recall, fbeta = compute_model_metrics(y_test, y_pred)
 
 # Get model scores for categorical slices
 data_slice_scores = compute_data_slice_scores(test, y_test, y_pred)
+
+output_path = os.path.join(str(root_dir), "outputs", "data_slice_output.json")
+if not os.path.isfile(output_path):
+    with open(output_path, 'w') as f:
+        json.dump(data_slice_scores, f)
 
 # Save slice_output.txt file
 output_path = os.path.join(str(root_dir), "outputs", "slice_output.txt")
