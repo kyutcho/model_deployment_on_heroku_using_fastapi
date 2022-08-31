@@ -82,6 +82,10 @@ y_pred = inference(rf_model, X_test)
 # Get model scores (precision, recall, fbeta)
 precision, recall, fbeta = compute_model_metrics(y_test, y_pred)
 
+print(f"Precision: {precision}")
+print(f"Recall: {recall}")
+print(f"Fbeta: {fbeta}")
+
 # Get model scores for categorical slices
 data_slice_scores = compute_data_slice_scores(test, y_test, y_pred)
 
