@@ -27,4 +27,4 @@ post_r = requests.post(
 )
 
 print(f"status code: {post_r.status_code}")
-print(f"outcome: {post_r.text}")
+print(f"outcome: {post_r.json()}")
