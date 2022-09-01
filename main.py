@@ -53,7 +53,28 @@ class census_data_input(BaseModel):
     capital_loss: int = Field(alias="capital-loss")
     hours_per_week: int = Field(alias="hours-per-week")
     native_country: object = Field(alias="native-country")
-    
+
+    class Config:
+        schema_extra = {
+            "example": {
+                "age": 52,
+                "workclass": "Private",
+                "fnlgt": 2368,
+                "education": "Doctorate",
+                "education-num": 16,
+                "marital-status": "Married-civ-spouse",
+                "occupation": "Exec-managerial",
+                "relationship": "Husband",
+                "race": "White",
+                "sex": "Male",
+                "capital-gain": 1050,
+                "capital-loss": 30,
+                "hours-per-week": 40,
+                "native-country": "United-States"
+            }
+        }   
+
+
 @app.get("/")
 def home():
     return {"Message": "Hello World"}
